@@ -68,8 +68,6 @@ public class CaselistController {
     @GetMapping("/pastCase/{id}")
     @RequiresAuthentication
     public Result caseByID(@PathVariable(name = "id") Integer id) {
-
-
         return Result.succ(caselistService.getById(id));
     }
 

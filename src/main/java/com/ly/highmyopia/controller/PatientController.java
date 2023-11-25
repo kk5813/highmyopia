@@ -41,14 +41,14 @@ public class PatientController {
     @Autowired
     ShortinfoMapper shortinfoMapper;
 
-    //          测试用
+    // 测试用
     @GetMapping("/index")
     public Object index() {
         Patient patient = patientService.getById(1L);
         return Result.succ(patient);
     }
 
-    //          患者列表
+    //     患者列表
     @GetMapping("/list")
     @RequiresAuthentication
     public Result list() {
@@ -95,11 +95,10 @@ public class PatientController {
         return Result.succ(null);
     }
 
-    //          根据patientId查询患者基本信息
+    //      根据patientId查询患者基本信息
     @GetMapping("/patientIndex/{id}")
     @RequiresAuthentication
     public Result patientByPatientId(@PathVariable(name = "id") String id) {
-
         return Result.succ(patientMapper.selectPatientByPId(id));
     }
 

@@ -10,6 +10,7 @@ import com.ly.highmyopia.service.UserService;
 import com.ly.highmyopia.shiro.AccountProfile;
 import com.ly.highmyopia.util.SaltUtil;
 import com.ly.highmyopia.util.ShiroUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author liangyue
  * @since 2021-02-01
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -60,11 +62,11 @@ public class UserController {
         User temp = new User();
         temp.setCreator(ShiroUtil.getProfile().getUserName());
         temp.setCreateTime(LocalDateTime.now());
-        String initialPassword = "123456";
-        String salt = SaltUtil.getSalt();
-        String password = SecureUtil.md5(salt + SecureUtil.md5(initialPassword));
-        temp.setUserPassword(password);
-        temp.setSalt(salt);
+        //String initialPassword = "123456";
+        //String salt = SaltUtil.getSalt();
+        //String password = SecureUtil.md5(salt + SecureUtil.md5(initialPassword));
+        temp.setUserPassword(user.getUserPassword());
+        //temp.setSalt("nosalt");
         temp.setUserLoginName(user.getUserLoginName());
         temp.setUserName(user.getUserName());
         temp.setUserStatus(user.getUserStatus());
@@ -84,6 +86,7 @@ public class UserController {
         temp.setUserLoginName(user.getUserLoginName());
         temp.setUserName(user.getUserName());
         temp.setUserStatus(user.getUserStatus());
+        temp.setUserPassword(user.getUserPassword());
 
         userService.saveOrUpdate(temp);
         return Result.succ(null);
@@ -99,6 +102,15 @@ public class UserController {
         temp.setUserStatus(-1);
         userService.saveOrUpdate(temp);
         return Result.succ(null);
+    }
+
+    //    查找
+    @GetMapping("/find/{userId}")
+    @RequiresAuthentication
+    public Result FindUser(@PathVariable(name = "userId") Long userId) {
+        User temp = userService.getById(userId);
+        log.info("用户" + temp);
+        return Result.succ(temp);
     }
 
     //          用户列表

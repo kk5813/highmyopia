@@ -33,6 +33,8 @@ public class AccountController {
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response) {
         User user = userService.getOne(new QueryWrapper<User>().eq("user_login_name", loginDto.getUserLoginName()));
         Assert.notNull(user, "用户不存在");
+
+
 /*        if(!user.getUserPassword().equals(SecureUtil.md5(user.getSalt() + loginDto.getUserPassword())))
             return Result.fail("密码错误！");*/
         if(!user.getUserPassword().equals(loginDto.getUserPassword()))

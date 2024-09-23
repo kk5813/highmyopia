@@ -16,10 +16,14 @@ mybatis-plus:
 #    map-underscore-to-camel-case: false
 server:
   port: 8081
+
 shiro-redis:
   enabled: true
   redis-manager:
     host: 127.0.0.1:6379
+    password: 2287996531       # 用redis-manager的时候也要给到redis的password
+
+
 highmyopia:
   jwt:
     # 加密密钥

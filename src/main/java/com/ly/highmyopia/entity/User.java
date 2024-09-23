@@ -41,7 +41,7 @@ public class User implements Serializable {
 
     private String userPassword;
 
-    //private String salt;
+    private String salt;
 
     private Integer userStatus;
 

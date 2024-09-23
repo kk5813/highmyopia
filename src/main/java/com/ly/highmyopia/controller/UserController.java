@@ -48,12 +48,14 @@ public class UserController {
         );
     }
 
+
     //          测试保存
     @PostMapping("/save")
     @RequiresAuthentication
     public Object testUser(@Validated @RequestBody User user) {
         return user.toString();
     }
+
 
     //          添加用户
     @PostMapping("/add")
@@ -62,11 +64,10 @@ public class UserController {
         User temp = new User();
         temp.setCreator(ShiroUtil.getProfile().getUserName());
         temp.setCreateTime(LocalDateTime.now());
-        //String initialPassword = "123456";
-        //String salt = SaltUtil.getSalt();
-        //String password = SecureUtil.md5(salt + SecureUtil.md5(initialPassword));
-        temp.setUserPassword(user.getUserPassword());
-        //temp.setSalt("nosalt");
+        String salt = SaltUtil.getSalt();
+        String password = SecureUtil.md5(salt + SecureUtil.md5(user.getUserPassword()));
+        temp.setUserPassword(password);
+        temp.setSalt(salt);
         temp.setUserLoginName(user.getUserLoginName());
         temp.setUserName(user.getUserName());
         temp.setUserStatus(user.getUserStatus());
@@ -117,6 +118,8 @@ public class UserController {
     @GetMapping("/list")
     @RequiresAuthentication
     public Result list() {
+        log.info("userController的list方法");
+        System.out.println("userController的list方法");
         List<User> userList = userService.list();
         List<AccountProfile> resList = new ArrayList<>();
         for(User user : userList) {
@@ -124,6 +127,8 @@ public class UserController {
             BeanUtil.copyProperties(user, profile);
             resList.add(profile);
         }
+        log.info("查询成功" + userList);
+        System.out.println("查询成功" + userList);
         return Result.succ(resList);
     }
 }

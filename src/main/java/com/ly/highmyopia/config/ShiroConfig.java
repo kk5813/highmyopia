@@ -39,7 +39,6 @@ public class ShiroConfig {
         sessionManager.setSessionDAO(redisSessionDAO);
 
         // other stuff...
-
         return sessionManager;
     }
 

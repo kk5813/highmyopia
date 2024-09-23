@@ -1,6 +1,6 @@
 package com.ly.highmyopia;
 
-import javafx.application.Application;
+//import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +13,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class HighmyopiaApplication {
     public static void main(String[] args) {
         /**
-         * 高度近视项目程序入口
-         * date: 2020年2月10日
-         * author: liangyue
-         * data: 2024年1月16
+         * 爱尔眼科医院项目程序入口
+         * date: 2024年9月23日
+         * author: kk
+         * data: 2024年9月23日
          */
         SpringApplication.run(HighmyopiaApplication.class, args);
     }

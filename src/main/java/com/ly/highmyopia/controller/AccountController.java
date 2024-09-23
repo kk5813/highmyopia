@@ -36,11 +36,9 @@ public class AccountController {
         Assert.notNull(user, "用户不存在");
 
 
-/*        if(!user.getUserPassword().equals(SecureUtil.md5(user.getSalt() + loginDto.getUserPassword())))
-            return Result.fail("密码错误！");*/
         log.info(user.getUserPassword());
         log.info(loginDto.getUserPassword());
-        if(!user.getUserPassword().equals(loginDto.getUserPassword()))
+        if (!user.getUserPassword().equals(SecureUtil.md5(user.getSalt() + loginDto.getUserPassword())))
             return Result.fail("密码错误！");
         String jwt = jwtUtils.generateToken(user.getUserId());
         response.setHeader("Authorization", jwt);
